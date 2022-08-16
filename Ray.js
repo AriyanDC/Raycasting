@@ -2,6 +2,7 @@ class Ray {
     constructor(x, y, angle) {
         this.pos = createVector(x, y);
         this.dir = p5.Vector.fromAngle(angle);
+        this.infiniteLine = true;
     }
 
 
@@ -15,8 +16,8 @@ class Ray {
         if (this.infiniteLine) {
             push()
             translate(this.pos.x, this.pos.y);
-            stroke(0, 255, 0);
-            line(0, 0, this.dir.x * width, this.dir.y * height)
+            stroke(255, 255, 0);
+            line(0, 0, this.dir.x * width * 2, this.dir.y * height * 2)
             pop()
         }
     }
@@ -34,16 +35,12 @@ class Ray {
 
 
         const den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+        if (den == 0) return;
         const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / den;
         const u = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / den;
 
         if (t > 0 && t < 1 && u > 0) {
-            stroke(0, 255, 0)
-            line(this.pos.x, this.pos.y, x1 + t * (x2 - x1), y1 + t * (y2 - y1))
-            this.infiniteLine = false;
             return createVector(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
-        } else {
-            this.infiniteLine = true;
         }
 
 
