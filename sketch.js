@@ -1,6 +1,6 @@
 let rays = [];
 let obstacles = [];
-const rayAmount = 360;
+const rayAmount = 100;
 const step = 360 / rayAmount;
 // let sl;
 // let sly;
@@ -23,7 +23,6 @@ function draw() {
 
     background(130);
     rays.forEach(r => {
-        r.display();
 
         let pt = r.cast(o);
         if (pt) {
@@ -31,8 +30,9 @@ function draw() {
             ellipse(pt.x, pt.y, 10);
         }
         r.pos.set(mouseX, mouseY);
+
+        r.display();
     });
-    console.log(createVector(mouseX, mouseY).normalize())
     o.display();
 
 }

@@ -12,11 +12,13 @@ class Ray {
     }
 
     display = () => {
-        push()
-        translate(this.pos.x, this.pos.y);
-        stroke(0, 255, 0);
-        line(0, 0, this.dir.x * 30, this.dir.y * 30)
-        pop()
+        if (this.infiniteLine) {
+            push()
+            translate(this.pos.x, this.pos.y);
+            stroke(0, 255, 0);
+            line(0, 0, this.dir.x * width, this.dir.y * height)
+            pop()
+        }
     }
 
     cast = obs => {
@@ -36,7 +38,12 @@ class Ray {
         const u = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) / den;
 
         if (t > 0 && t < 1 && u > 0) {
+            stroke(0, 255, 0)
+            line(this.pos.x, this.pos.y, x1 + t * (x2 - x1), y1 + t * (y2 - y1))
+            this.infiniteLine = false;
             return createVector(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
+        } else {
+            this.infiniteLine = true;
         }
 
 
